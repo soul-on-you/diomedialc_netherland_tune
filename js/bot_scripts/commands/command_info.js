@@ -1,4 +1,4 @@
-import BotOptions from "../bot_options";
+import BotOptions from "../../bot_options";
 
 export default async function (chatID, UsersModel, bot, msg) {
   try {

@@ -1,3 +1,3 @@
-import start from "./command_start";
-import info from "./command_info";
-export default { start, info };
+import Commands from "./commands";
+import Callbacks from "./callbacks";
+export default { Commands, Callbacks };
