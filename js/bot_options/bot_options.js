@@ -46,33 +46,60 @@ export default {
       ],
     }),
   },
-  adminActionEditCurrenciesFields: {
+  adminActionEditServerFields: {
     reply_markup: JSON.stringify({
       inline_keyboard: [
-        [{ text: "Название пары", callback_data: "editCurrencyName" }],
-        [{ text: "API ключ пары", callback_data: "editCurrencyAPIKey" }],
-        [{ text: "Все поля пары", callback_data: "editCurrencyAllFields" }],
+        [{ text: "Название пары", callback_data: "editServerName" }],
+        [{ text: "API ключ пары", callback_data: "editServerAPIKey" }],
+        [{ text: "Все поля пары", callback_data: "editServerAllFields" }],
         [{ text: "Назад", callback_data: "backToAdminEditDB" }],
       ],
     }),
   },
 
-  allActionShowAllUnfollowed: {
+  allActionAddOrderToCart: function (count, totalPrice) {
+    return {
+      reply_markup: JSON.stringify({
+        inline_keyboard: [
+          [
+            { text: "-1 \u1F53B", callback_data: "orderRemoveServer" },
+            { text: `${count} шт` },
+            { text: "+1 \u1F53A", callback_data: "orderAddServer" },
+          ],
+          [
+            {
+              text: `Оплатить ${totalPrice}₽`,
+              callback_data: "orderShowPayMethods",
+            },
+          ],
+          [{ text: "Назад \u25BC", callback_data: "backToShowServerList" }],
+        ],
+      }),
+    };
+  },
+
+  allActionChoosePayMethod: {
     reply_markup: JSON.stringify({
       inline_keyboard: [
-        [{ text: "Валютные пары", callback_data: "showUnfollowedCurrency" }],
-        [{ text: "Акции", callback_data: "showUnfollowedSecurity" }],
-        [{ text: "Назад", callback_data: "backToShowActions" }],
+        [
+          { text: "Qiwi", callback_data: "orderQiwiPay" },
+          { text: "Картой", callback_data: "orderCardPay" },
+        ],
+        [{ text: "Назад \u25BC", callback_data: "backToAddOrderToCart" }],
       ],
     }),
   },
-  allActionShowFollowed: {
-    reply_markup: JSON.stringify({
-      inline_keyboard: [
-        [{ text: "Валютные пары", callback_data: "showFollowedCurrency" }],
-        [{ text: "Акции", callback_data: "showFollowedSecurity" }],
-        [{ text: "Назад", callback_data: "backToShowActions" }],
-      ],
-    }),
+
+  allActionPayOrder: function (payURL, totalPrice) {
+    return {
+      reply_markup: JSON.stringify({
+        inline_keyboard: [
+          [{ text: `Оплатить ${totalPrice}₽`, url: payURL }],
+          [{ text: "Отмена \u274C", callback_data: "backToShowActions" }],
+        ],
+      }),
+    };
   },
 };
+
+// console.log("⥢"); //\u1F53B    //\u12962
