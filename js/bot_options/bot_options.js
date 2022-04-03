@@ -58,6 +58,13 @@ export default {
       ],
     }),
   },
+  adminBackToEditServer: {
+    reply_markup: JSON.stringify({
+      inline_keyboard: [
+        [{ text: "Назад \u25BC", callback_data: "backToAdminEditServer" }],
+      ],
+    }),
+  },
 
   allActionAddOrderToCart: function (count, totalPrice) {
     return {
