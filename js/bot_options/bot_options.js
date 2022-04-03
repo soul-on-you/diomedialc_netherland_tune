@@ -2,9 +2,9 @@ export default {
   adminActions: {
     reply_markup: JSON.stringify({
       inline_keyboard: [
-        [{ text: "Мои vpn-тунели", callback_data: "showUserTunels" }],
+        [{ text: "Мои vpn-тунели", callback_data: "showUserTunnels" }],
         [{ text: "Выбрать сервер", callback_data: "showServers" }],
-        [{ text: "Гайд", callback_data: "showFAQ" }], // Сделать ссылкой
+        [{ text: "Гайд", url: "http://www.example.com" }], // Сделать ссылкой
         [{ text: "Редактировать", callback_data: "useEditMode" }],
         [
           {
@@ -18,9 +18,9 @@ export default {
   moderatorActions: {
     reply_markup: JSON.stringify({
       inline_keyboard: [
-        [{ text: "Мои vpn-тунели", callback_data: "showUserTunels" }],
+        [{ text: "Мои vpn-тунели", callback_data: "showUserTunnels" }],
         [{ text: "Выбрать сервер", callback_data: "showServers" }],
-        [{ text: "Гайд", callback_data: "showFAQ" }], // Сделать ссылкой
+        [{ text: "Гайд", url: "http://www.example.com" }], // Сделать ссылкой
         [{ text: "Реферальная программа", callback_data: "showRef" }],
       ],
     }),
@@ -28,9 +28,9 @@ export default {
   userActions: {
     reply_markup: JSON.stringify({
       inline_keyboard: [
-        [{ text: "Мои vpn-тунели", callback_data: "showUserTunels" }], // добавить кнопку назад
+        [{ text: "Мои vpn-тунели", callback_data: "showUserTunnels" }], // добавить кнопку назад
         [{ text: "Выбрать сервер", callback_data: "showServers" }], // добавить кнопку назад
-        [{ text: "Гайд", callback_data: "showFAQ" }], // Сделать ссылкой
+        [{ text: "Гайд", url: "http://www.example.com" }], // Сделать ссылкой
         [{ text: "Реферальная программа", callback_data: "showRef" }], // добавить кнопку назад
       ],
     }),
@@ -42,17 +42,19 @@ export default {
         [{ text: "Добавить сервер", callback_data: "addServer" }],
         [{ text: "Редактировать сервер", callback_data: "changeServer" }],
         [{ text: "Удалить сервер", callback_data: "removeServer" }],
-        [{ text: "Назад", callback_data: "backToShowActions" }],
+        [{ text: "Назад \u25BC", callback_data: "backToShowActions" }],
       ],
     }),
   },
   adminActionEditServerFields: {
     reply_markup: JSON.stringify({
       inline_keyboard: [
-        [{ text: "Название пары", callback_data: "editServerName" }],
-        [{ text: "API ключ пары", callback_data: "editServerAPIKey" }],
-        [{ text: "Все поля пары", callback_data: "editServerAllFields" }],
-        [{ text: "Назад", callback_data: "backToAdminEditDB" }],
+        [{ text: "IP", callback_data: "editServerIP" }],
+        [{ text: "SSH_USER", callback_data: "editServerSSH_USER" }],
+        [{ text: "SSH_PASSWORD", callback_data: "editServerSSH_PASSWORD" }],
+        [{ text: "LeaseEndDate", callback_data: "editServerLeaseEndDate" }],
+        [{ text: "Все поля", callback_data: "editServerAllFields" }],
+        [{ text: "Назад \u25BC", callback_data: "backToAdminEditServer" }],
       ],
     }),
   },
@@ -95,7 +97,7 @@ export default {
       reply_markup: JSON.stringify({
         inline_keyboard: [
           [{ text: `Оплатить ${totalPrice}₽`, url: payURL }],
-          [{ text: "Отмена \u274C", callback_data: "backToShowActions" }],
+          [{ text: "Отмена \u274C", callback_data: "orderCancel" }],
         ],
       }),
     };
