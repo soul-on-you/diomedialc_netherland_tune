@@ -1,13 +1,13 @@
-//adminActions
+// adminActions
 import sendGlobalMessage from "./adminActions/callback_sendGlobalMessage";
 import useEditMode from "./adminActions/callback_useEditMode";
 
-//adminEditorMode
+// adminEditorMode
 import addServer from "./adminEditorMode/callback_addServer";
 import editServer from "./adminEditorMode/callback_editServer";
 import removeServer from "./adminEditorMode/callback_removeServer";
 
-//editServerInfo
+// editServerInfo
 import backToAdminEditServer from "./editServerInfo/callback_backToAdminEditServer";
 import editServerAllFields from "./editServerInfo/callback_editServerAllFields";
 import editServerIP from "./editServerInfo/callback_editServerIP";
@@ -15,21 +15,21 @@ import editServerLeaseEndDate from "./editServerInfo/callback_editServerLeaseEnd
 import editServerSSH_PASSWORD from "./editServerInfo/callback_editServerSSH_PASSWORD";
 import editServerSSH_USER from "./editServerInfo/callback_editServerSSH_USER";
 
-//orderCart
+// orderCart
 import backToShowServerList from "./orderCart/callback_backToShowServerList";
 import orderAddServer from "./orderCart/callback_orderAddServer";
 import orderRemoveServer from "./orderCart/callback_orderRemoveServer";
 import orderShowPayMethods from "./orderCart/callback_orderShowPayMethods";
 
-//orderPay
+// orderPay
 import orderCancel from "./orderPay/orderCancel";
 
-//orderPaymentMethod
+// orderPaymentMethod
 import backToAddOrderToCart from "./orderPaymentMethod/callback_backToAddOrderToCart";
 import orderCardPay from "./orderPaymentMethod/callback_orderCardPay";
 import orderQiwiPay from "./orderPaymentMethod/callback_orderQiwiPay";
 
-//userGroupActions
+// userGroupActions
 import backToShowActions from "./userGroupActions/callback_backToShowActions";
 import showRef from "./userGroupActions/callback_showRef";
 import showServers from "./userGroupActions/callback_showServers";
