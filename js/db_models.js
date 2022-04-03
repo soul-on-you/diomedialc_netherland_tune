@@ -59,7 +59,12 @@ export const Tunnels = sequelize.define("Tunnels", {
     primaryKey: true,
     unique: true,
     allowNull: false,
+    required: true,
     autoIncrement: true,
+    references: {
+      model: "Servers",
+      key: "id",
+    },
   },
   name: {
     type: DataTypes.STRING(20),
@@ -67,7 +72,7 @@ export const Tunnels = sequelize.define("Tunnels", {
     unique: true,
   },
   emojiCountryCode: {
-    type: DataTypes.STRING(4),
+    type: DataTypes.STRING(10),
     allowNull: false,
   },
   price: {
@@ -91,11 +96,8 @@ export const Servers = sequelize.define("Servers", {
     type: DataTypes.INTEGER,
     primaryKey: true,
     unique: true,
-    required: true,
-    references: {
-      model: "Tunnels",
-      key: "id",
-    },
+    allowNull: false,
+    autoIncrement: true,
   },
   IP: {
     type: DataTypes.STRING(15),
