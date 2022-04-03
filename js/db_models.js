@@ -16,7 +16,7 @@ export const Users = sequelize.define("Users", {
   },
 });
 
-export const UserTunels = sequelize.define("UserTunels", {
+export const UserTunnels = sequelize.define("UserTunnels", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -33,16 +33,16 @@ export const UserTunels = sequelize.define("UserTunels", {
       key: "chatID",
     },
   },
-  tunelID: {
+  tunnelID: {
     type: DataTypes.INTEGER,
     allowNull: false,
     required: true,
     references: {
-      model: "Tunels",
+      model: "Tunnels",
       key: "id",
     },
   },
-  tunelSubscriptionsTerm: {
+  tunnelSubscriptionsTerm: {
     type: DataTypes.DATEONLY,
     allowNull: false,
   },
@@ -53,7 +53,7 @@ export const UserTunels = sequelize.define("UserTunels", {
   },
 });
 
-export const Tunels = sequelize.define("Tunels", {
+export const Tunnels = sequelize.define("Tunnels", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -74,7 +74,7 @@ export const Tunels = sequelize.define("Tunels", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  clients: {
+  clientCount: {
     type: DataTypes.INTEGER,
     allowNull: false,
     defaultValue: 0,
@@ -83,7 +83,37 @@ export const Tunels = sequelize.define("Tunels", {
     type: DataTypes.INTEGER,
     allowNull: false,
     defaultValue: 1024,
-  }
+  },
+});
+
+export const Servers = sequelize.define("Servers", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    unique: true,
+    required: true,
+    references: {
+      model: "Tunnels",
+      key: "id",
+    },
+  },
+  IP: {
+    type: DataTypes.STRING(15),
+    unique: true,
+    allowNull: false,
+  },
+  SSH_USER: {
+    type: DataTypes.STRING(10),
+    allowNull: false,
+  },
+  SSH_PASSWORD: {
+    type: DataTypes.STRING(12),
+    allowNull: false,
+  },
+  LeaseEndDate: {
+    type: DataTypes.DATEONLY,
+    allowNull: false,
+  },
 });
 
 // export const UserСurrencies = sequelize.define("UserСurrencies", {
