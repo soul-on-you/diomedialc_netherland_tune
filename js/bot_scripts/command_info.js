@@ -1,10 +1,4 @@
 import BotOptions from "../bot_options";
-// BotOprions.adminActions
-// {
-//   adminActions,
-//   moderatorActions,
-//   userActions,
-// }
 
 export default async function (chatID, UsersModel, bot, msg) {
   try {
