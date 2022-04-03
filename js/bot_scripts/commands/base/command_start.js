@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export default async function (chatID, UsersModel, bot, msg) {
+export default async function (bot, chatID, msg, UsersModel) {
   try {
     if (chatID == process.env.ADMIN_ID) {
       await UsersModel.create({ chatID: chatID, rules: "ADMIN" });
