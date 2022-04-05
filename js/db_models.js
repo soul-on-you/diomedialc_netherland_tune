@@ -32,15 +32,19 @@ export const UserTunnels = sequelize.define("UserTunnels", {
       model: "Users",
       key: "chatID",
     },
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
   },
-  tunnelID: {
+  serverID: {
     type: DataTypes.INTEGER,
     allowNull: false,
     required: true,
     references: {
-      model: "Tunnels",
+      model: "Servers",
       key: "id",
     },
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
   },
   tunnelSubscriptionsTerm: {
     type: DataTypes.DATEONLY,
@@ -54,19 +58,20 @@ export const UserTunnels = sequelize.define("UserTunnels", {
 });
 
 export const Tunnels = sequelize.define("Tunnels", {
-  id: {
+  serverID: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     unique: true,
     allowNull: false,
     required: true,
-    autoIncrement: true,
     references: {
       model: "Servers",
       key: "id",
     },
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
   },
-  name: {
+  serverName: {
     type: DataTypes.STRING(20),
     allowNull: false,
     unique: true,
@@ -84,7 +89,7 @@ export const Tunnels = sequelize.define("Tunnels", {
     allowNull: false,
     defaultValue: 0,
   },
-  connectionsSpeed: {
+  maxSpeed: {
     type: DataTypes.INTEGER,
     allowNull: false,
     defaultValue: 1024,
