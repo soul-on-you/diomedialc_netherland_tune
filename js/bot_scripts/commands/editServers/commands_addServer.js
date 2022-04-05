@@ -11,10 +11,10 @@ export default async function (
   TunnelsModel
 ) {
   const [
-    ip,
-    user,
-    password,
-    endDate,
+    IP,
+    SSH_USER,
+    SSH_PASSWORD,
+    LeaseEndDate,
     serverName,
     emojiCountryCode,
     price,
@@ -23,10 +23,10 @@ export default async function (
 
   try {
     await ServersModel.create({
-      IP: ip,
-      SSH_USER: user,
-      SSH_PASSWORD: password,
-      LeaseEndDate: endDate,
+      IP,
+      SSH_USER,
+      SSH_PASSWORD,
+      LeaseEndDate,
     });
   } catch (e) {
     if (e.name != "SequelizeUniqueConstraintError") {
@@ -37,32 +37,34 @@ export default async function (
     }
   }
 
+  let serverID;
   try {
+    serverID = (await ServersModel.findOne({ where: { IP } })).id;
+
     await TunnelsModel.create({
-      name: serverName,
-      emojiCountryCode: emojiCountryCode,
-      price: price,
-      connectionsSpeed: maxSpeed,
+      serverID,
+      serverName,
+      emojiCountryCode,
+      price,
+      maxSpeed,
     });
   } catch (e) {
     if (e.name != "SequelizeUniqueConstraintError") {
       const eMsg =
-        await "Неудалось создать запись нового сервера в БД!Подключение к БД не выполнилось!\n";
-      await console.error(`${eMsg}\n${e}\n`);
+        "Неудалось создать запись нового сервера в БД!Подключение к БД не выполнилось!\n";
+      console.error(`${eMsg}\n${e}\n`);
       return bot.sendMessage(chatID, eMsg);
     }
   }
 
-  // const ip=1, user="ee", password="1234", endDate = 22;
-  // const newserver = {ip, user, password, endDate};
-  // console.log(newserver);
-  // const localServers = [newserver];
-  // console.log(localServers);
-  // localServers.push({ip, user, password, endDate});
-  // console.log(localServers);
-
-  localServers.push({ ip, user, password, endDate });
-  localTunnels.push({ serverName, emojiCountryCode, price, maxSpeed });
+  localServers.push({ IP, SSH_USER, SSH_PASSWORD, LeaseEndDate });
+  localTunnels.push({
+    serverID,
+    serverName,
+    emojiCountryCode,
+    price,
+    maxSpeed,
+  });
 
   bot.editMessageText("\u2705 Новая запись о сервере успешно добавлена!", {
     chat_id: chatID,
