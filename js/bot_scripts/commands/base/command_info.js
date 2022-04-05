@@ -1,22 +1,8 @@
 import BotOptions from "../../../bot_options";
 import { UserRulesResolver } from "../../../services";
 
-export default async function (bot, chatID, msg, UsersModel) {
+export default async function (bot, chatID, first_name, UsersModel) {
   try {
-    // const user = await UsersModel.findOne({ where: { chatID: chatID } });
-    // let options;
-    // switch (user.rules) {
-    //   case "ADMIN":
-    //     options = BotOptions.adminActions;
-    //     break;
-    //   case "MODERATOR":
-    //     options = BotOptions.moderatorActions;
-    //     break;
-    //   case "USER":
-    //     options = BotOptions.userActions;
-    //     break;
-    // }
-
     const options = await UserRulesResolver(
       UsersModel,
       chatID,
@@ -26,7 +12,7 @@ export default async function (bot, chatID, msg, UsersModel) {
     );
     return bot.sendMessage(
       chatID,
-      `Приветствую, ${msg.from.first_name}!\nВыберите действие:`,
+      `Приветствую, ${first_name}!\nВыберите действие:`,
       options
     );
   } catch (e) {
@@ -36,3 +22,9 @@ export default async function (bot, chatID, msg, UsersModel) {
     return bot.sendMessage(chatID, eMsg);
   }
 }
+
+// import { botSendInfoMessage } from "../../../message_scripts";
+
+// export default async function (bot, chatID, first_name, UsersModel) {
+//   await botSendInfoMessage(bot, chatID, first_name, UsersModel);
+// }
