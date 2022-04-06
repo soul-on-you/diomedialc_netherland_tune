@@ -71,9 +71,13 @@ export default {
       reply_markup: JSON.stringify({
         inline_keyboard: [
           [
-            { text: "-1 \u1F53B", callback_data: "orderRemoveServer" },
-            { text: `${count} шт` },
-            { text: "+1 \u1F53A", callback_data: "orderAddServer" },
+            { text: "-1 \u{1F53B}", callback_data: "orderRemoveServer" },
+            // { text: `${count} шт`, callback_data: "" },
+            {
+              text: `${count} мес.`,
+              callback_data: "none",
+            },
+            { text: "+1 \u{1F53A}", callback_data: "orderAddServer" },
           ],
           [
             {
@@ -81,7 +85,7 @@ export default {
               callback_data: "orderShowPayMethods",
             },
           ],
-          [{ text: "Назад \u25BC", callback_data: "backToShowServerList" }],
+          [{ text: "Назад \u25BC", callback_data: "showServers" }], // было backToShowServerList
         ],
       }),
     };
@@ -105,6 +109,24 @@ export default {
         inline_keyboard: [
           [{ text: `Оплатить ${totalPrice}₽`, url: payURL }],
           [{ text: "Отмена \u274C", callback_data: "orderCancel" }],
+        ],
+      }),
+    };
+  },
+
+  allBackToMain: {
+    reply_markup: JSON.stringify({
+      inline_keyboard: [
+        [{ text: "Назад \u25BC", callback_data: "backToShowActions" }],
+      ],
+    }),
+  },
+
+  allBackToCallback: function (execCallback) {
+    return {
+      reply_markup: JSON.stringify({
+        inline_keyboard: [
+          [{ text: "Назад \u25BC", callback_data: execCallback }],
         ],
       }),
     };
