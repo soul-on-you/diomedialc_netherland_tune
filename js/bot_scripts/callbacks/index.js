@@ -6,6 +6,7 @@ import useEditMode from "./adminActions/callback_useEditMode";
 import addServer from "./adminEditorMode/callback_addServer";
 import editServer from "./adminEditorMode/callback_editServer";
 import removeServer from "./adminEditorMode/callback_removeServer";
+import subRemoveServer from "./adminEditorMode/callback_subRemoveServer";
 
 // editServerInfo
 import backToAdminEditServer from "./editServerInfo/callback_backToAdminEditServer";
@@ -20,6 +21,7 @@ import backToShowServerList from "./orderCart/callback_backToShowServerList";
 import orderAddServer from "./orderCart/callback_orderAddServer";
 import orderRemoveServer from "./orderCart/callback_orderRemoveServer";
 import orderShowPayMethods from "./orderCart/callback_orderShowPayMethods";
+import subOrderCart from "./orderCart/callback_subOrderCart";
 
 // orderPay
 import orderCancel from "./orderPay/orderCancel";
@@ -42,6 +44,7 @@ export default {
   addServer,
   editServer,
   removeServer,
+  subRemoveServer,
 
   backToAdminEditServer,
   editServerAllFields,
@@ -54,6 +57,7 @@ export default {
   orderAddServer,
   orderRemoveServer,
   orderShowPayMethods,
+  subOrderCart,
 
   orderCancel,
 
