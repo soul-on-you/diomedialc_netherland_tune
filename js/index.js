@@ -8,6 +8,7 @@ import {
   Servers as ServersModel,
 } from "./db_models";
 import BotScripts from "./bot_scripts";
+import BotPreInit from "./bot_init";
 
 dotenv.config();
 
@@ -22,8 +23,27 @@ bot.setMyCommands([{ command: "/info", description: "Подробная инфо
  * @param messageID: bot last message id (id),
  */
 const states = {};
+
+/**
+ * @field IP: {String}
+ * @field SSH_USER: {String}
+ * @field SSH_PASSWORD: {String}
+ * @field LeaseEndDate: {DATE}
+ */
 const servers = [];
+
+/**
+ * @field serverID: {INTEGER}
+ * @field serverName: {String}
+ * @field emojiCountryCode: {String}
+ * @field price: {INTEGER}
+ * @field maxSpeed : {INTEGER}
+ */
 const tunnels = [];
+
+// const asyncInitLocalObjects = async() =>{
+//   BotPreInit.syncObjectWithDB()
+// }
 
 const start = async () => {
   //!DEVONLY_COMMENTED
@@ -34,6 +54,26 @@ const start = async () => {
     console.error("Подключение к БД не выполнилось!\n", e);
   }
 
+  //!PREINIT
+  await BotPreInit.syncObjectWithDB(
+    tunnels,
+    TunnelsModel,
+    "serverID",
+    "serverName",
+    "emojiCountryCode",
+    "price",
+    "maxSpeed"
+  );
+
+  await BotPreInit.syncObjectWithDB(
+    servers,
+    ServersModel,
+    "IP",
+    "SSH_USER",
+    "SSH_PASSWORD",
+    "LeaseEndDate"
+  );
+
   bot.on("message", async (msg) => {
     const chatID = msg.from.id;
 
@@ -42,11 +82,29 @@ const start = async () => {
       return BotScripts.Commands.start(bot, chatID, msg, UsersModel);
     }
     if (msg.text === "/info") {
-      return BotScripts.Commands.info(bot, chatID, msg, UsersModel);
+      return BotScripts.Commands.info(
+        bot,
+        chatID,
+        msg.from.first_name,
+        UsersModel
+      );
     }
 
     // HandleUserInputCommands
     if (states[chatID] && states[chatID].runtime == "message") {
+      // adminActions
+      if (states[chatID].command == "sendGlobalMessage") {
+        return BotScripts.Commands.sendGlobalMessage(
+          bot,
+          chatID,
+          msg.text,
+          states,
+          msg.from.first_name,
+          UsersModel
+        );
+      }
+
+      // AdminEditorMode
       if (states[chatID].command == "addServer") {
         return BotScripts.Commands.addServer(
           bot,
@@ -75,7 +133,21 @@ const start = async () => {
       return BotScripts.Callbacks.useEditMode(bot, chatID, messageID);
     }
     if (data == "sendGlobalMessage") {
-      return BotScripts.Callbacks.sendGlobalMessage();
+      return BotScripts.Callbacks.sendGlobalMessage(
+        bot,
+        chatID,
+        messageID,
+        states
+      );
+      // // adminActions
+      // if (states[chatID].command == "sendGlobalMessage") {
+      //   return BotScripts.Callbacks.sendGlobalMessage(
+      //     bot,
+      //     chatID,
+      //     messageID,
+      //     states
+      //   );
+      // }
     }
 
     // AdminEditorMode
@@ -86,12 +158,23 @@ const start = async () => {
       return BotScripts.Callbacks.editServer();
     }
     if (data == "removeServer") {
-      return BotScripts.Callbacks.removeServer();
+      return BotScripts.Callbacks.removeServer(
+        bot,
+        chatID,
+        messageID,
+        states,
+        tunnels
+      );
     }
 
     // EditServerInfo
     if (data == "backToAdminEditServer") {
-      return BotScripts.Callbacks.backToAdminEditServer();
+      return BotScripts.Callbacks.backToAdminEditServer(
+        bot,
+        chatID,
+        messageID,
+        states
+      );
     }
     if (data == "editServerAllFields") {
       return BotScripts.Callbacks.editServerAllFields();
@@ -110,17 +193,35 @@ const start = async () => {
     }
 
     // OrderCart
-    if (data == "backToShowServerList") {
-      return BotScripts.Callbacks.backToShowServerList();
-    }
+    //? if (data == "backToShowServerList") {
+    //?   return BotScripts.Callbacks.backToShowServerList();
+    //? }
     if (data == "orderAddServer") {
-      return BotScripts.Callbacks.orderAddServer();
+      return BotScripts.Callbacks.orderAddServer(
+        bot,
+        chatID,
+        messageID,
+        states,
+        tunnels
+      );
     }
     if (data == "orderRemoveServer") {
-      return BotScripts.Callbacks.orderRemoveServer();
+      return BotScripts.Callbacks.orderRemoveServer(
+        bot,
+        chatID,
+        messageID,
+        states,
+        tunnels
+      );
     }
     if (data == "orderShowPayMethods") {
-      return BotScripts.Callbacks.orderShowPayMethods();
+      return BotScripts.Callbacks.orderShowPayMethods(
+        bot,
+        chatID,
+        messageID,
+        states,
+        tunnels
+      );
     }
 
     // OrderPay
@@ -140,14 +241,59 @@ const start = async () => {
     }
 
     // UserGroupActions
-    if (data == "showUserTunnels") {
-      return BotScripts.Callbacks.showUserTunnels();
-    }
-    if (data == "showServers") {
-      return BotScripts.Callbacks.showServers();
+    if (data == "backToShowActions") {
+      return BotScripts.Callbacks.backToShowActions(
+        bot,
+        chatID,
+        messageID,
+        states,
+        msg.from.first_name,
+        UsersModel
+      );
     }
     if (data == "showRef") {
       return BotScripts.Callbacks.showRef();
+    }
+    if (data == "showServers") {
+      return BotScripts.Callbacks.showServers(
+        bot,
+        chatID,
+        messageID,
+        states,
+        tunnels
+      );
+    }
+    if (data == "showUserTunnels") {
+      return BotScripts.Callbacks.showUserTunnels();
+    }
+
+    // HandleSubCallback
+    if (states[chatID] && states[chatID].runtime == "callback") {
+      // AdminEditorMode
+      if (states[chatID].command == "removeServer") {
+        return BotScripts.Callbacks.subRemoveServer(
+          bot,
+          chatID,
+          messageID,
+          states,
+          data,
+          servers,
+          tunnels,
+          ServersModel
+        );
+      }
+
+      // orderCart
+      if (states[chatID].command == "orderCart") {
+        return BotScripts.Callbacks.subOrderCart(
+          bot,
+          chatID,
+          messageID,
+          data,
+          states,
+          tunnels
+        );
+      }
     }
   });
 };
