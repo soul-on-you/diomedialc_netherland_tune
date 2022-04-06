@@ -107,7 +107,7 @@ export default {
     return {
       reply_markup: JSON.stringify({
         inline_keyboard: [
-          [{ text: `Оплатить ${totalPrice}₽`, url: payURL }],
+          [{ text: `Оплатить ${totalPrice}₽`, url: `${payURL}` }],
           [{ text: "Отмена \u274C", callback_data: "orderCancel" }],
         ],
       }),
