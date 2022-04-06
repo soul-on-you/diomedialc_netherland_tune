@@ -1,8 +1,17 @@
 import BotOptions from "../../../bot_options";
 import { UserRulesResolver } from "../../../services";
 
-export default async function (bot, chatID, messageID, first_name, UsersModel) {
+export default async function (
+  bot,
+  chatID,
+  messageID,
+  states,
+  first_name,
+  UsersModel
+) {
   try {
+    states[chatID] = {};
+    
     const options = await UserRulesResolver(
       UsersModel,
       chatID,
