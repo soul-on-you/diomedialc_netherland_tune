@@ -41,6 +41,8 @@ const servers = [];
  */
 const tunnels = [];
 
+const qiwiBillIDs = [];
+
 // const asyncInitLocalObjects = async() =>{
 //   BotPreInit.syncObjectWithDB()
 // }
@@ -226,7 +228,15 @@ const start = async () => {
 
     // OrderPay
     if (data == "orderCancel") {
-      return BotScripts.Callbacks.orderCancel();
+      return BotScripts.Callbacks.orderCancel(
+        bot,
+        chatID,
+        messageID,
+        states,
+        qiwiBillIDs,
+        msg.from.first_name,
+        UsersModel
+      );
     }
 
     //orderPaymentMethod
@@ -237,7 +247,14 @@ const start = async () => {
       return BotScripts.Callbacks.orderCardPay();
     }
     if (data == "orderQiwiPay") {
-      return BotScripts.Callbacks.orderQiwiPay();
+      return BotScripts.Callbacks.orderQiwiPay(
+        bot,
+        chatID,
+        messageID,
+        states,
+        qiwiBillIDs,
+        tunnels
+      );
     }
 
     // UserGroupActions
