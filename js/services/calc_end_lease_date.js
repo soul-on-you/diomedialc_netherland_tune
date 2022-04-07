@@ -5,9 +5,8 @@ export default function (addMonthLeaseTerm) {
 }
 
 // const now = new Date();
-// console.log(now);
+// console.log(now.toString());
 // console.log(now.toLocaleDateString());
-// console.log(now.toISOString());
 // console.log(now.toDateString());
 // console.log(now.toUTCString());
 // console.log(now.toDateString());
