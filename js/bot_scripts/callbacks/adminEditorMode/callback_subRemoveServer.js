@@ -49,3 +49,5 @@ export default async function (
     return bot.sendMessage(chatID, eMsg);
   }
 }
+
+//2705 - зеленая галочка

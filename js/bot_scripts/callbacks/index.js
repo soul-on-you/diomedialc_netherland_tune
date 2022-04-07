@@ -36,6 +36,7 @@ import backToShowActions from "./userGroupActions/callback_backToShowActions";
 import showRef from "./userGroupActions/callback_showRef";
 import showServers from "./userGroupActions/callback_showServers";
 import showUserTunnels from "./userGroupActions/callback_showUserTunnels";
+import subShowUserTunnelInfo from "./userGroupActions/callback_subShowUserTunnelInfo";
 
 export default {
   sendGlobalMessage,
@@ -69,4 +70,5 @@ export default {
   showRef,
   showServers,
   showUserTunnels,
+  subShowUserTunnelInfo,
 };

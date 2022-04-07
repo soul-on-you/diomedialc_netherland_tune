@@ -8,6 +8,9 @@ import info from "./base/command_info";
 // editServers
 import addServer from "./editServers/commands_addServer";
 
+// userGroupActions
+import getUserTunnelPassword from "./userGroupActions/getUserTunnelPassword";
+
 export default {
   sendGlobalMessage,
 
@@ -15,4 +18,6 @@ export default {
   info,
 
   addServer,
+
+  getUserTunnelPassword,
 };
