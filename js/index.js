@@ -9,6 +9,7 @@ import {
 } from "./db_models";
 import BotScripts from "./bot_scripts";
 import BotPreInit from "./bot_init";
+import { QiwiServiceWorker } from "./payment";
 
 dotenv.config();
 
@@ -41,11 +42,20 @@ const servers = [];
  */
 const tunnels = [];
 
+/**
+ * @field billID: {String}
+ */
 const qiwiBillIDs = [];
 
 // const asyncInitLocalObjects = async() =>{
 //   BotPreInit.syncObjectWithDB()
 // }
+
+//!TestRun
+// bot.on("message", async (msg) => {
+//   const chatID = msg.from.id;
+//   return bot.sendMessage(chatID, "Я вас не понимаю");
+// });
 
 const start = async () => {
   //!DEVONLY_COMMENTED
@@ -66,6 +76,7 @@ const start = async () => {
     "price",
     "maxSpeed"
   );
+  8;
 
   await BotPreInit.syncObjectWithDB(
     servers,
@@ -75,6 +86,10 @@ const start = async () => {
     "SSH_PASSWORD",
     "LeaseEndDate"
   );
+
+  console.log("OK!");
+
+  QiwiServiceWorker(qiwiBillIDs, bot, states, UserTunnelsModel);
 
   bot.on("message", async (msg) => {
     const chatID = msg.from.id;
@@ -119,7 +134,21 @@ const start = async () => {
           TunnelsModel
         );
       }
+
+      // UserGroupActions
+      if (states[chatID].command == "getUserTunnelPassword") {
+        return BotScripts.Commands.getUserTunnelPassword(
+          bot,
+          chatID,
+          states,
+          msg.text
+        );
+      }
     }
+
+    
+    //!DEBUG ONLY
+    console.log(states);
 
     // UndifinedCommands
     return bot.sendMessage(chatID, "Я вас не понимаю");
@@ -141,15 +170,6 @@ const start = async () => {
         messageID,
         states
       );
-      // // adminActions
-      // if (states[chatID].command == "sendGlobalMessage") {
-      //   return BotScripts.Callbacks.sendGlobalMessage(
-      //     bot,
-      //     chatID,
-      //     messageID,
-      //     states
-      //   );
-      // }
     }
 
     // AdminEditorMode
@@ -281,7 +301,14 @@ const start = async () => {
       );
     }
     if (data == "showUserTunnels") {
-      return BotScripts.Callbacks.showUserTunnels();
+      return BotScripts.Callbacks.showUserTunnels(
+        bot,
+        chatID,
+        messageID,
+        states,
+        tunnels,
+        UserTunnelsModel
+      );
     }
 
     // HandleSubCallback
@@ -309,6 +336,19 @@ const start = async () => {
           data,
           states,
           tunnels
+        );
+      }
+
+      // userGroupActions
+      if (states[chatID].command == "showUserTunnelInfo") {
+        return BotScripts.Callbacks.subShowUserTunnelInfo(
+          bot,
+          chatID,
+          messageID,
+          data,
+          states,
+          tunnels,
+          UserTunnelsModel
         );
       }
     }
