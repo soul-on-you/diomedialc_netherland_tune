@@ -131,6 +131,38 @@ export default {
       }),
     };
   },
+
+  allUserTunnelInfo: {
+    reply_markup: JSON.stringify({
+      inline_keyboard: [
+        [{ text: "Показать пороль", callback_data: "showUserTunnelsPassword" }],
+        // [{ text: "Поменять пороль", callback_data: execCallback }],
+        [{ text: "Получить конфиг VPN", callback_data: "getUserTunnelOVPN" }],
+        [{ text: "Продлить подписку", callback_data: "continueSublit" }],
+        [{ text: "Назад \u25BC", callback_data: "showUserTunnels" }],
+      ],
+    }),
+  },
+
+  allUserGetPassword: {
+    reply_markup: JSON.stringify({
+      inline_keyboard: [
+        [
+          {
+            text: "\u2705 Подтвердить пороль",
+            callback_data: "сonfirmUserTunnelPassword",
+          },
+        ],
+        [
+          {
+            text: "\u267B Изменить пороль",
+            callback_data: "newUserTunnelPassword",
+          },
+        ],
+        [{ text: "Назад \u25BC", callback_data: "showUserTunnels" }],
+      ],
+    }),
+  },
 };
 
 // console.log("⥢"); //\u1F53B    //\u12962
