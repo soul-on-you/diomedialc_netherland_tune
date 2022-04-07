@@ -55,6 +55,14 @@ export const UserTunnels = sequelize.define("UserTunnels", {
     defaultValue: false,
     allowNull: false,
   },
+  password: {
+    type: DataTypes.STRING(40),
+    allowNull: true,
+  },
+  client: {
+    type: DataTypes.STRING(40),
+    allowNull: true,
+  },
 });
 
 export const Tunnels = sequelize.define("Tunnels", {
