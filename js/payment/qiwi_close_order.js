@@ -11,7 +11,7 @@ export default async function (billID) {
   console.log(billInfo);
 
   if (billInfo.status.value !== "PAID") {
-    qiwiApi.cancelBill("2fe8a831-075a-4a05-97ad-cca3d299e842").then((data) => {
+    qiwiApi.cancelBill(billID).then((data) => {
       console.log(data);
     });
   }
