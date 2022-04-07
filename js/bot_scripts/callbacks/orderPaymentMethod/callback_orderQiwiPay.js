@@ -20,7 +20,12 @@ export default async function (
 
   billIDs.push(billID);
 
-  states[chatID] = { ...states[chatID], billID: billID, payUrl: payUrl };
+  states[chatID] = {
+    ...states[chatID],
+    messageID: messageID,
+    billID: billID,
+    payUrl: payUrl,
+  };
 
   bot.editMessageText(
     `\u{1F4B3} Оплата товара\n\n\u{1F4E1} Товар: ${
