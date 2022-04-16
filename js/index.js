@@ -146,7 +146,6 @@ const start = async () => {
       }
     }
 
-    
     //!DEBUG ONLY
     console.log(states);
 
@@ -259,7 +258,7 @@ const start = async () => {
       );
     }
 
-    //orderPaymentMethod
+    // OrderPaymentMethod
     if (data == "backToAddOrderToCart") {
       return BotScripts.Callbacks.backToAddOrderToCart();
     }
@@ -308,6 +307,29 @@ const start = async () => {
         states,
         tunnels,
         UserTunnelsModel
+      );
+    }
+
+    // UserTunnels
+    if (data == "confirmUserTunnelPassword") {
+      return BotScripts.Callbacks.confirmUserTunnelPassword(
+        bot,
+        chatID,
+        messageID,
+        states,
+        UserTunnelsModel,
+        ServersModel,
+        msg.from.first_name,
+        UsersModel
+      );
+      console.log("confirmUserTunnelPassword");
+    }
+    if (data == "newUserTunnelPassword") {
+      return BotScripts.Callbacks.newUserTunnelPassword(
+        bot,
+        chatID,
+        messageID,
+        states
       );
     }
 
