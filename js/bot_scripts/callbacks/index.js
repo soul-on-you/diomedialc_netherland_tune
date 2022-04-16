@@ -38,6 +38,10 @@ import showServers from "./userGroupActions/callback_showServers";
 import showUserTunnels from "./userGroupActions/callback_showUserTunnels";
 import subShowUserTunnelInfo from "./userGroupActions/callback_subShowUserTunnelInfo";
 
+// userTunnels
+import confirmUserTunnelPassword from "./userTunnels/callback_confirmUserTunnelPassword";
+import newUserTunnelPassword from "./userTunnels/callback_newUserTunnelPassword";
+
 export default {
   sendGlobalMessage,
   useEditMode,
@@ -71,4 +75,7 @@ export default {
   showServers,
   showUserTunnels,
   subShowUserTunnelInfo,
+
+  confirmUserTunnelPassword,
+  newUserTunnelPassword,
 };
