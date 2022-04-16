@@ -46,9 +46,10 @@ set server_password [lindex $argv 1]
 set client_name [lindex $argv 2]
 set client_pass [lindex $argv 3]
 set clientbase_dir [lindex $argv 4]
+set bash_script_dir [lindex $argv 5]
 
 set timeout -1
-spawn ./create_ssh_connection.sh $server_ip $clientbase_dir $client_name
+spawn $bash_script_dir $server_ip $clientbase_dir $client_name
 match_max 100000
 expect -exact ".ssh/id_rsa': "
 send -- "$server_password\r"

@@ -150,7 +150,7 @@ export default {
         [
           {
             text: "\u2705 Подтвердить пороль",
-            callback_data: "сonfirmUserTunnelPassword",
+            callback_data: "confirmUserTunnelPassword",
           },
         ],
         [

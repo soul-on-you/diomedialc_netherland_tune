@@ -8,7 +8,7 @@ export default async function (
   localTunnels,
   UserTunnelsModel
 ) {
-  const tunnels = await UserTunnelsModel.findAll();
+  const tunnels = await UserTunnelsModel.findAll({ where: { chatID } });
 
   tunnels.sort(function (serverA, serverB) {
     if (serverB.status != false) {

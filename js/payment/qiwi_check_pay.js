@@ -1,5 +1,5 @@
 import { HandlePayedOrder } from "./index";
-import { GetBillChatID } from ".././services";
+import { GetBillChatID } from "../services";
 
 export default async function (
   billIDs,
