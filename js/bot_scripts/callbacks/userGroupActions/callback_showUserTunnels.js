@@ -1,4 +1,5 @@
 import BotOptions from "../../../bot_options";
+import { countryCodeEmoji } from "country-code-emoji";
 
 export default async function (
   bot,
@@ -11,24 +12,28 @@ export default async function (
   const tunnels = await UserTunnelsModel.findAll({ where: { chatID } });
 
   tunnels.sort(function (serverA, serverB) {
-    if (serverB.status != false) {
+    if (serverA.status != false) {
       return 1;
     }
 
-    if (serverA.status != false) {
+    if (serverB.status != false) {
       return -1;
     }
 
     return 0;
   });
 
-  const userTunnelsButtons = tunnels.map((tunnel) => [
-    {
-      text: localTunnels.find((_tunnel) => _tunnel.serverID == tunnel.serverID)
-        .serverName,
-      callback_data: `${tunnel.serverID}:${tunnel.status}`,
-    },
-  ]);
+  const userTunnelsButtons = tunnels.map((tunnel) => {
+    const tunnelData = localTunnels.find(
+      (_tunnel) => _tunnel.serverID == tunnel.serverID
+    );
+    return [
+      {
+        text: `${countryCodeEmoji(tunnelData.emojiCountry)} ${tunnelData.serverName}`,
+        callback_data: `${tunnel.serverID}:${tunnel.status}`,
+      },
+    ];
+  });
 
   const userTunnelsOptions = {
     reply_markup: JSON.stringify({

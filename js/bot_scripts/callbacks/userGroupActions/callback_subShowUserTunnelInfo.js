@@ -1,4 +1,5 @@
 import BotOptions from "../../../bot_options";
+import { countryCodeEmoji } from "country-code-emoji";
 
 export default async function (
   bot,
@@ -33,15 +34,12 @@ export default async function (
   });
   const tunnel = localTunnels.find((tunnel) => tunnel.serverID == serverID);
 
-  //   console.log(
-  //     new Date(tunnelFromDB.tunnelSubscriptionsTerm).toISOString().slice(0, 10)
-  //   );
+  states[chatID] = {
+    serverID: serverID,
+  };
 
-  //   console.log(states);
-  //   const t = { ...BotOptions.allUserTunnelInfo };
-  //   console.log(t);
   return bot.editMessageText(
-    `\u{1F4E1} Сервер: ${
+    `\u{1F4E1} Сервер: ${countryCodeEmoji(tunnel.emojiCountry)} ${
       tunnel.serverName
     }\n\n\u{1F5D3}Подписка действительна до ${new Date(
       tunnelFromDB.tunnelSubscriptionsTerm

@@ -8,7 +8,7 @@ export default function (bot, chatID, messageID, states) {
   };
 
   return bot.editMessageText(
-    "Введите {ip:user:pass:end_date(yyyy-mm-dd):servername:emojiCode:price:maxspeed}",
+    "Введите {ip:user:pass:end_date(yyyy-mm-dd):servername:emojiCountry:price:maxspeed}",
     {
       chat_id: chatID,
       message_id: messageID,

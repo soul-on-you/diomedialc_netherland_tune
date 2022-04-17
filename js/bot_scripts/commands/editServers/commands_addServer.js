@@ -1,4 +1,5 @@
 import BotOptions from "../../../bot_options";
+import { emojiCountryCode } from "country-code-emoji";
 
 export default async function (
   bot,
@@ -16,10 +17,12 @@ export default async function (
     SSH_PASSWORD,
     LeaseEndDate,
     serverName,
-    emojiCountryCode,
+    EmojiCountryCode,
     price,
     maxSpeed,
   ] = msg.text.split(":");
+
+  const emojiCountry = emojiCountryCode(EmojiCountryCode);
 
   try {
     await ServersModel.create({
@@ -44,7 +47,7 @@ export default async function (
     await TunnelsModel.create({
       serverID,
       serverName,
-      emojiCountryCode,
+      emojiCountry,
       price,
       maxSpeed,
     });
@@ -61,7 +64,7 @@ export default async function (
   localTunnels.push({
     serverID,
     serverName,
-    emojiCountryCode,
+    emojiCountry,
     price,
     maxSpeed,
   });
