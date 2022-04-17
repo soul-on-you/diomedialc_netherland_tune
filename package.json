@@ -26,6 +26,7 @@
   "homepage": "https://github.com/soul-on-you/diomedialc_netherland_tune#readme",
   "dependencies": {
     "@qiwi/bill-payments-node-js-sdk": "^3.2.1",
+    "country-code-emoji": "2.3.0",
     "cron": "^1.8.2",
     "dotenv": "^16.0.0",
     "interval-promise": "^1.4.0",

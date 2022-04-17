@@ -138,7 +138,7 @@ export default {
         [{ text: "Показать пороль", callback_data: "showUserTunnelsPassword" }],
         // [{ text: "Поменять пороль", callback_data: execCallback }],
         [{ text: "Получить конфиг VPN", callback_data: "getUserTunnelOVPN" }],
-        [{ text: "Продлить подписку", callback_data: "continueSublit" }],
+        [{ text: "Продлить подписку", callback_data: "continueSubmit" }],
         [{ text: "Назад \u25BC", callback_data: "showUserTunnels" }],
       ],
     }),
