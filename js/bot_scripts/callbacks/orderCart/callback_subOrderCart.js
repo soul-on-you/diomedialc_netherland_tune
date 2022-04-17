@@ -1,5 +1,6 @@
 import BotOptions from "../../../bot_options";
 import { InternetSpeed } from "../../../services";
+import { countryCodeEmoji } from "country-code-emoji";
 
 export default function (bot, chatID, messageID, data, states, localTunnels) {
   const tunnel = localTunnels.find((tunnel) => tunnel.serverID == data);
@@ -10,7 +11,9 @@ export default function (bot, chatID, messageID, data, states, localTunnels) {
   };
 
   bot.editMessageText(
-    `\u{1F4E1} Сервер ${tunnel.serverName}\n\n\u{1F4B5} Цена: ${
+    `\u{1F4E1} Сервер: ${countryCodeEmoji(tunnel.emojiCountry)} ${
+      tunnel.serverName
+    }\n\n\u{1F4B5} Цена: ${
       tunnel.price
     }₽/месяц\n\n\u23F1 Скорость: ${InternetSpeed(tunnel.maxSpeed)}`,
     {

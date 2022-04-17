@@ -1,5 +1,6 @@
 import BotOptions from "../../../bot_options";
-import { InternetSpeed, EmojiFlag } from "../../../services";
+import { InternetSpeed } from "../../../services";
+import { countryCodeEmoji } from "country-code-emoji";
 
 export default function (bot, chatID, messageID, states, localTunnels) {
   states[chatID] = {};
@@ -7,7 +8,7 @@ export default function (bot, chatID, messageID, states, localTunnels) {
   const message_buttons = localTunnels.map((tunnel) => {
     return [
       {
-        text: `${EmojiFlag(tunnel.emojiCountryCode)}${
+        text: `${countryCodeEmoji(tunnel.emojiCountry)} ${
           tunnel.serverName
         } ${String.fromCharCode(55356)}${String.fromCharCode(
           57104

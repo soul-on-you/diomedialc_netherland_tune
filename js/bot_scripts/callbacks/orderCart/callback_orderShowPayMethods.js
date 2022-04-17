@@ -1,5 +1,6 @@
 import BotOptions from "../../../bot_options";
 import { CalculateEndOfLeaseDate } from "../../../services";
+import { countryCodeEmoji } from "country-code-emoji";
 
 export default function (bot, chatID, messageID, states, localTunnels) {
   const tunnel = localTunnels.find(
@@ -8,9 +9,9 @@ export default function (bot, chatID, messageID, states, localTunnels) {
   console.log(states);
 
   bot.editMessageText(
-    `\u{1F4B3} Способ оплаты\n\n\u{1F4E1} Товар: ${
-      tunnel.serverName
-    }\n\n\u{1F4B5}Сумма к оплате: ${
+    `\u{1F4B3} Способ оплаты\n\n\u{1F4E1} Товар: ${countryCodeEmoji(
+      tunnel.emojiCountry
+    )} ${tunnel.serverName}\n\n\u{1F4B5}Сумма к оплате: ${
       tunnel.price * states[chatID].orderCount
     }₽\n\n\u{1F5D3} Подписка до ${CalculateEndOfLeaseDate(
       states[chatID].orderCount

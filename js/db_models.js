@@ -84,8 +84,8 @@ export const Tunnels = sequelize.define("Tunnels", {
     allowNull: false,
     unique: true,
   },
-  emojiCountryCode: {
-    type: DataTypes.STRING(10),
+  emojiCountry: {
+    type: DataTypes.STRING(2),
     allowNull: false,
   },
   price: {
