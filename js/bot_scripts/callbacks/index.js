@@ -40,7 +40,9 @@ import subShowUserTunnelInfo from "./userGroupActions/callback_subShowUserTunnel
 
 // userTunnels
 import confirmUserTunnelPassword from "./userTunnels/callback_confirmUserTunnelPassword";
+import getUserTunnelOVPN from "./userTunnels/callback_getUserTunnelOVPN";
 import newUserTunnelPassword from "./userTunnels/callback_newUserTunnelPassword";
+import showUserTunnelsPassword from "./userTunnels/callback_showUserTunnelsPassword";
 
 export default {
   sendGlobalMessage,
@@ -77,5 +79,7 @@ export default {
   subShowUserTunnelInfo,
 
   confirmUserTunnelPassword,
+  getUserTunnelOVPN,
   newUserTunnelPassword,
+  showUserTunnelsPassword,
 };
