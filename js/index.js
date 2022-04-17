@@ -36,7 +36,7 @@ const servers = [];
 /**
  * @field serverID: {INTEGER}
  * @field serverName: {String}
- * @field emojiCountryCode: {String}
+ * @field emojiCountry: {String}
  * @field price: {INTEGER}
  * @field maxSpeed : {INTEGER}
  */
@@ -72,11 +72,10 @@ const start = async () => {
     TunnelsModel,
     "serverID",
     "serverName",
-    "emojiCountryCode",
+    "emojiCountry",
     "price",
     "maxSpeed"
   );
-  8;
 
   await BotPreInit.syncObjectWithDB(
     servers,
@@ -260,7 +259,13 @@ const start = async () => {
 
     // OrderPaymentMethod
     if (data == "backToAddOrderToCart") {
-      return BotScripts.Callbacks.backToAddOrderToCart();
+      return BotScripts.Callbacks.backToAddOrderToCart(
+        bot,
+        chatID,
+        messageID,
+        states,
+        tunnels
+      );
     }
     if (data == "orderCardPay") {
       return BotScripts.Callbacks.orderCardPay();
@@ -322,7 +327,16 @@ const start = async () => {
         msg.from.first_name,
         UsersModel
       );
-      console.log("confirmUserTunnelPassword");
+    }
+    if (data == "getUserTunnelOVPN") {
+      return BotScripts.Callbacks.getUserTunnelOVPN(
+        bot,
+        chatID,
+        messageID,
+        states,
+        tunnels,
+        UserTunnelsModel
+      );
     }
     if (data == "newUserTunnelPassword") {
       return BotScripts.Callbacks.newUserTunnelPassword(
@@ -330,6 +344,16 @@ const start = async () => {
         chatID,
         messageID,
         states
+      );
+    }
+    if (data == "showUserTunnelsPassword") {
+      return BotScripts.Callbacks.showUserTunnelsPassword(
+        bot,
+        chatID,
+        messageID,
+        states,
+        tunnels,
+        UserTunnelsModel
       );
     }
 
