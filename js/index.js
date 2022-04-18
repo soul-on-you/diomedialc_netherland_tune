@@ -38,7 +38,7 @@ const servers = [];
  * @field serverName: {String}
  * @field emojiCountry: {String}
  * @field price: {INTEGER}
- * @field maxSpeed : {INTEGER}
+ * @field maxSpeed: {INTEGER}
  */
 const tunnels = [];
 
@@ -268,7 +268,14 @@ const start = async () => {
       );
     }
     if (data == "orderCardPay") {
-      return BotScripts.Callbacks.orderCardPay();
+      return BotScripts.Callbacks.orderCardPay(
+        bot,
+        chatID,
+        messageID,
+        states,
+        qiwiBillIDs,
+        tunnels
+      );
     }
     if (data == "orderQiwiPay") {
       return BotScripts.Callbacks.orderQiwiPay(
