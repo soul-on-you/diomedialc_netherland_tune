@@ -40,6 +40,7 @@ import subShowUserTunnelInfo from "./userGroupActions/callback_subShowUserTunnel
 
 // userTunnels
 import confirmUserTunnelPassword from "./userTunnels/callback_confirmUserTunnelPassword";
+import continueSubmit from "./userTunnels/callback_continueSubmit";
 import getUserTunnelOVPN from "./userTunnels/callback_getUserTunnelOVPN";
 import newUserTunnelPassword from "./userTunnels/callback_newUserTunnelPassword";
 import showUserTunnelsPassword from "./userTunnels/callback_showUserTunnelsPassword";
@@ -79,6 +80,7 @@ export default {
   subShowUserTunnelInfo,
 
   confirmUserTunnelPassword,
+  continueSubmit,
   getUserTunnelOVPN,
   newUserTunnelPassword,
   showUserTunnelsPassword,
